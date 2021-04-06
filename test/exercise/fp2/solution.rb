@@ -6,9 +6,16 @@ module Exercise
 
       # Написать свою функцию my_each
       def my_each
-        for el in self
-          yield el
+        iter = lambda do |arr|
+          return if arr.empty?
+
+          head, *tail = *arr
+          yield(head)
+          iter.call(tail)
         end
+
+        iter.call(self)
+        self
       end
 
       # Написать свою функцию my_map
